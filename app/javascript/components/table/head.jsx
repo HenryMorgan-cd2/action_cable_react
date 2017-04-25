@@ -12,6 +12,7 @@ export default class TableHead extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(fetchColumns())
+
   }
 
   render() {
