@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Sku:
+  = @product.sku
+%p
+  %strong Name:
+  = @product.name
+%p
+  %strong Description:
+  = @product.description
+%p
+  %strong Published:
+  = @product.published
+%p
+  %strong Category:
+  = @product.category
+= link_to 'Edit', edit_product_path(@product)
+|
+= link_to 'Back', products_path

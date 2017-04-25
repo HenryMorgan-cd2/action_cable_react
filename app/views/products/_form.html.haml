@@ -1,0 +1,26 @@
+= form_with(model: product, local: true) do |form|
+  - if product.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(product.errors.count, "error")
+        prohibited this product from being saved:
+      %ul
+        - product.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :sku
+    = form.text_field :sku, id: :product_sku
+  .field
+    = form.label :name
+    = form.text_field :name, id: :product_name
+  .field
+    = form.label :description
+    = form.text_area :description, id: :product_description
+  .field
+    = form.label :published
+    = form.check_box :published, id: :product_published
+  .field
+    = form.label :category_id
+    = form.text_field :category_id, id: :product_category_id
+  .actions
+    = form.submit
