@@ -4,14 +4,21 @@ import { createLogger } from "redux-logger"
 
 import reducers from "../reducers/table_reducer"
 
-import { action_cable_reducer, action_cable_middleware } from 'utils/action_cable'
+import { setupConnection } from 'utils/action_cable'
 
+
+const { middleware: action_middleware, reducers: action_reducers } = setupConnection({
+  'TablesChannel': {
+    channel: 'TablesChannel',
+    id: 'HELLO'
+  }
+})
 
 const allReducers = combineReducers({
   ...reducers,
-  connections: action_cable_reducer,
+  ...action_reducers,
 })
 
-const middleware = applyMiddleware(action_cable_middleware, thunk, createLogger())
+const middleware = applyMiddleware(action_middleware, thunk, createLogger())
 
 export default createStore(allReducers, middleware)

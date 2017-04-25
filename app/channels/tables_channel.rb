@@ -1,7 +1,7 @@
 class TablesChannel < ApplicationCable::Channel
   def subscribed
-    @table = "#{params[:type]}Table".safe_constantize
-    stream_from "table_#{params[:type]}"
+    @table = params[:id]
+    stream_from "table"
   end
 
   def unsubscribed
@@ -9,6 +9,6 @@ class TablesChannel < ApplicationCable::Channel
   end
 
   def get_columns
-    ActionCable.server.broadcast("table_#{params[:type]}", type: 'FETCH_COLUMNS_FULFILLED', payload: {columns: @table.columns})
+    ActionCable.server.broadcast("table", type: 'FETCH_COLUMNS_FULFILLED', payload: {columns: [@table.titleize, @table.upcase, @table.downcase]})
   end
 end
